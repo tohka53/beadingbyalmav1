@@ -9,6 +9,9 @@ import { CatalogoComponent } from './catalogo/catalogo/catalogo.component';
 import { HetComponent } from './het/het/het.component';
 import { FetComponent } from './fet/fet/fet.component';
 import { ColaComponent } from './cola/cola/cola.component';
+import { inject } from '@vercel/analytics';
+inject();
+
 
 @NgModule({
   declarations: [
