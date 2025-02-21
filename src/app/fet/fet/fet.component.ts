@@ -7,6 +7,9 @@ import { Component } from '@angular/core';
   styleUrl: './fet.component.css'
 })
 export class FetComponent {
+
+  currentYear: number = new Date().getFullYear();
+  
   showModal = false;
   
   copyEmail() {
