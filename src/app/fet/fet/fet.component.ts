@@ -7,5 +7,15 @@ import { Component } from '@angular/core';
   styleUrl: './fet.component.css'
 })
 export class FetComponent {
-
+  showModal = false;
+  
+  copyEmail() {
+    navigator.clipboard.writeText('mecg1994@gmail.com')
+      .then(() => {
+        alert('Email copiado al portapapeles');
+      })
+      .catch(err => {
+        console.error('Error al copiar el email:', err);
+      });
+  }
 }
