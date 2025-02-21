@@ -10,6 +10,7 @@ import { HetComponent } from './het/het/het.component';
 import { FetComponent } from './fet/fet/fet.component';
 import { ColaComponent } from './cola/cola/cola.component';
 import { inject } from '@vercel/analytics';
+import { BlogComponent } from './blog/blog/blog.component';
 inject();
 
 
@@ -21,7 +22,8 @@ inject();
     CatalogoComponent,
     HetComponent,
     FetComponent,
-    ColaComponent
+    ColaComponent,
+    BlogComponent
   ],
   imports: [
     BrowserModule,

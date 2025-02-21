@@ -1,0 +1,58 @@
+{
+  "hash": "1f54a493",
+  "configHash": "0fa07189",
+  "lockfileHash": "116cd57d",
+  "browserHash": "69121935",
+  "optimized": {
+    "@angular/common": {
+      "src": "../../../../../../node_modules/@angular/common/fesm2022/common.mjs",
+      "file": "@angular_common.js",
+      "fileHash": "08b45561",
+      "needsInterop": false
+    },
+    "@angular/core": {
+      "src": "../../../../../../node_modules/@angular/core/fesm2022/core.mjs",
+      "file": "@angular_core.js",
+      "fileHash": "a71ade06",
+      "needsInterop": false
+    },
+    "@angular/platform-browser": {
+      "src": "../../../../../../node_modules/@angular/platform-browser/fesm2022/platform-browser.mjs",
+      "file": "@angular_platform-browser.js",
+      "fileHash": "cb9821d2",
+      "needsInterop": false
+    },
+    "@angular/router": {
+      "src": "../../../../../../node_modules/@angular/router/fesm2022/router.mjs",
+      "file": "@angular_router.js",
+      "fileHash": "779057f1",
+      "needsInterop": false
+    },
+    "@vercel/analytics": {
+      "src": "../../../../../../node_modules/@vercel/analytics/dist/index.mjs",
+      "file": "@vercel_analytics.js",
+      "fileHash": "0ef09313",
+      "needsInterop": false
+    },
+    "flowbite": {
+      "src": "../../../../../../node_modules/flowbite/lib/esm/index.js",
+      "file": "flowbite.js",
+      "fileHash": "81cc46d9",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "chunk-WTQIVN53": {
+      "file": "chunk-WTQIVN53.js"
+    },
+    "chunk-XTMWL7PY": {
+      "file": "chunk-XTMWL7PY.js"
+    },
+    "chunk-YG4Z6UT5": {
+      "file": "chunk-YG4Z6UT5.js"
+    },
+    "chunk-R2QGWZ7S": {
+      "file": "chunk-R2QGWZ7S.js"
+    }
+  }
+}

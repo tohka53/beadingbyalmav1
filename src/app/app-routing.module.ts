@@ -17,7 +17,11 @@ const routes: Routes = [
   }, 
   {
     path: 'cola',
-    loadChildren: () => import('./catalogo/catalogo/catalogo.module').then(m => m.CatalogoModule)
+    loadChildren: () => import('./cola/cola/cola.module').then(m => m.ColaModule)
+  }, 
+  {
+    path: 'blog',
+    loadChildren: () => import('./blog/blog/blog.module').then(m => m.BlogModule)
   }, 
   {
     
