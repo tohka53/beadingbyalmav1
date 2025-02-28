@@ -6,7 +6,11 @@ module.exports = {
   ],
 
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        'josefin': ['Josefin Sans', 'serif', 'cursive', 'sans-serif', 'system-ui'],
+      },  
+    },
   },
   plugins: [
     require('flowbite/plugin') // add this line

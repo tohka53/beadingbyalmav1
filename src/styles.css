@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Kurale&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Kurale&display=swap');
 /* You can add global styles to this file, and also import other style files */
 @tailwind base;
 @tailwind components;
