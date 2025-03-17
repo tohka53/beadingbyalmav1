@@ -109,15 +109,35 @@ export class HomeComponent implements OnInit, OnDestroy {
  // Arreglo de imágenes a mostrar
  images: ImageItem[] = [
   {
-    thumbnail: 'assets/car1.jpeg',
-    fullSize: 'assets/car1.jpeg',
+    thumbnail: '/assets/home3.png',
+    fullSize: '/assets/home3.png',
     alt: ''
   },
   {
-    thumbnail: 'assets/images/thumb2.jpg',
-    fullSize: 'assets/images/img2.jpg',
+    thumbnail: '/assets/home7.png',
+    fullSize: '/assets/home7.png',
     alt: '',
    
+  },
+  {
+    thumbnail: '/assets/home8.jpeg',
+    fullSize: '/assets/home8.jpeg',
+    alt: ''
+  },
+  {
+    thumbnail: '/assets/home9.jpeg',
+    fullSize: '/assets/home9.jpeg',
+    alt: ''
+  },
+  {
+    thumbnail: '/assets/home2.png',
+    fullSize: '/assets/home2.png',
+    alt: ''
+  },
+  {
+    thumbnail: '/assets/home10.jpeg',
+    fullSize: '/assets/home10.jpeg',
+    alt: ''
   },
   // Agrega más imágenes según sea necesario
 ];
