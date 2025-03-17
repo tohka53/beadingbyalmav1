@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy,HostListener } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 
 interface ImageItem {
   thumbnail: string;    // URL para miniatura
@@ -6,6 +6,7 @@ interface ImageItem {
   alt: string;          // Texto alternativo
   title?: string;       // Título opcional
 }
+
 @Component({
   selector: 'app-home',
   standalone: false,
@@ -38,15 +39,67 @@ export class HomeComponent implements OnInit, OnDestroy {
       image: 'assets/car6.jpeg',
       alt: 'Imagen 6'
     }
-
   ];
 
   currentSlide = 0;
   autoPlayInterval: any;
   isTransitioning = false;
 
+  // Arreglo de imágenes a mostrar en la galería
+  images: ImageItem[] = [
+    {
+      thumbnail: '/assets/home3.png',
+      fullSize: '/assets/home3.png',
+      alt: ''
+    },
+    {
+      thumbnail: '/assets/home7.png',
+      fullSize: '/assets/home7.png',
+      alt: '',
+    },
+    {
+      thumbnail: '/assets/home8.jpeg',
+      fullSize: '/assets/home8.jpeg',
+      alt: ''
+    },
+    {
+      thumbnail: '/assets/home9.jpeg',
+      fullSize: '/assets/home9.jpeg',
+      alt: ''
+    },
+    {
+      thumbnail: '/assets/home2.png',
+      fullSize: '/assets/home2.png',
+      alt: ''
+    },
+    {
+      thumbnail: '/assets/home10.jpeg',
+      fullSize: '/assets/home10.jpeg',
+      alt: ''
+    }
+  ];
+
+  // Todas las imágenes disponibles para el modal (carrusel + galería)
+  allImages: ImageItem[] = [];
+
+  // Control del modal
+  modalOpen: boolean = false;
+  currentImageIndex: number = 0;
+
+  constructor() { }
+
   ngOnInit() {
     this.startAutoPlay();
+    
+    // Combinar las imágenes del carrusel con las de la galería para el modal
+    this.allImages = [
+      ...this.slides.map(slide => ({
+        thumbnail: slide.image,
+        fullSize: slide.image,
+        alt: slide.alt
+      })),
+      ...this.images
+    ];
   }
 
   ngOnDestroy() {
@@ -105,103 +158,61 @@ export class HomeComponent implements OnInit, OnDestroy {
     };
   }
 
-
- // Arreglo de imágenes a mostrar
- images: ImageItem[] = [
-  {
-    thumbnail: '/assets/home3.png',
-    fullSize: '/assets/home3.png',
-    alt: ''
-  },
-  {
-    thumbnail: '/assets/home7.png',
-    fullSize: '/assets/home7.png',
-    alt: '',
-   
-  },
-  {
-    thumbnail: '/assets/home8.jpeg',
-    fullSize: '/assets/home8.jpeg',
-    alt: ''
-  },
-  {
-    thumbnail: '/assets/home9.jpeg',
-    fullSize: '/assets/home9.jpeg',
-    alt: ''
-  },
-  {
-    thumbnail: '/assets/home2.png',
-    fullSize: '/assets/home2.png',
-    alt: ''
-  },
-  {
-    thumbnail: '/assets/home10.jpeg',
-    fullSize: '/assets/home10.jpeg',
-    alt: ''
-  },
-  // Agrega más imágenes según sea necesario
-];
-
-// Control del modal
-modalOpen: boolean = false;
-currentImageIndex: number = 0;
-
-constructor() { }
-
-
-
-// Abrir modal con una imagen específica
-openModal(index: number): void {
-  this.currentImageIndex = index;
-  this.modalOpen = true;
-  // Prevenir scroll del body mientras el modal está abierto
-  document.body.classList.add('overflow-hidden');
-}
-
-// Cerrar modal
-closeModal(): void {
-  this.modalOpen = false;
-  document.body.classList.remove('overflow-hidden');
-}
-
-// Navegar a la imagen anterior
-prevImage(event: Event): void {
-  event.stopPropagation(); // Evita que se cierre el modal
-  this.currentImageIndex = (this.currentImageIndex === 0) 
-    ? this.images.length - 1 
-    : this.currentImageIndex - 1;
-}
-
-// Navegar a la siguiente imagen
-nextImage(event: Event): void {
-  event.stopPropagation(); // Evita que se cierre el modal
-  this.currentImageIndex = (this.currentImageIndex === this.images.length - 1) 
-    ? 0 
-    : this.currentImageIndex + 1;
-}
-
-// Responder a las teclas del teclado
-@HostListener('document:keydown', ['$event'])
-handleKeyboardEvent(event: KeyboardEvent): void {
-  if (!this.modalOpen) return;
-  
-  switch(event.key) {
-    case 'Escape':
-      this.closeModal();
-      break;
-    case 'ArrowLeft':
-      this.prevImage(new Event('keydown'));
-      break;
-    case 'ArrowRight':
-      this.nextImage(new Event('keydown'));
-      break;
+  // Método para abrir el modal desde el carrusel
+  openCarouselImageModal(index: number): void {
+    this.currentImageIndex = index;
+    this.modalOpen = true;
+    this.stopAutoPlay(); // Detener autoplay mientras el modal está abierto
+    document.body.classList.add('overflow-hidden');
   }
-}
 
+  // Abrir modal con una imagen específica de la galería
+  openModal(index: number): void {
+    // Ajustar el índice considerando que ahora tenemos las imágenes del carrusel primero
+    this.currentImageIndex = this.slides.length + index;
+    this.modalOpen = true;
+    this.stopAutoPlay(); // Detener autoplay mientras el modal está abierto
+    document.body.classList.add('overflow-hidden');
+  }
 
+  // Cerrar modal
+  closeModal(): void {
+    this.modalOpen = false;
+    document.body.classList.remove('overflow-hidden');
+    this.startAutoPlay(); // Reanudar autoplay cuando se cierra el modal
+  }
 
+  // Navegar a la imagen anterior
+  prevImage(event: Event): void {
+    event.stopPropagation(); // Evita que se cierre el modal
+    this.currentImageIndex = (this.currentImageIndex === 0) 
+      ? this.allImages.length - 1 
+      : this.currentImageIndex - 1;
+  }
 
+  // Navegar a la siguiente imagen
+  nextImage(event: Event): void {
+    event.stopPropagation(); // Evita que se cierre el modal
+    this.currentImageIndex = (this.currentImageIndex === this.allImages.length - 1) 
+      ? 0 
+      : this.currentImageIndex + 1;
+  }
 
-
-
+  // Responder a las teclas del teclado
+  @HostListener('document:keydown', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent): void {
+    if (!this.modalOpen) return;
+    
+    switch(event.key) {
+      case 'Escape':
+        this.closeModal();
+        break;
+      case 'ArrowLeft':
+        this.prevImage(new Event('keydown'));
+        break;
+      case 'ArrowRight':
+        this.nextImage(new Event('keydown'));
+        break;
+    }
+  }
 }
