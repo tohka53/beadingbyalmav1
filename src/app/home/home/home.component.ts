@@ -1,5 +1,11 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy,HostListener } from '@angular/core';
 
+interface ImageItem {
+  thumbnail: string;    // URL para miniatura
+  fullSize: string;     // URL para imagen completa
+  alt: string;          // Texto alternativo
+  title?: string;       // Título opcional
+}
 @Component({
   selector: 'app-home',
   standalone: false,
@@ -98,4 +104,84 @@ export class HomeComponent implements OnInit, OnDestroy {
       'height': '100%'
     };
   }
+
+
+ // Arreglo de imágenes a mostrar
+ images: ImageItem[] = [
+  {
+    thumbnail: 'assets/car1.jpeg',
+    fullSize: 'assets/car1.jpeg',
+    alt: ''
+  },
+  {
+    thumbnail: 'assets/images/thumb2.jpg',
+    fullSize: 'assets/images/img2.jpg',
+    alt: '',
+   
+  },
+  // Agrega más imágenes según sea necesario
+];
+
+// Control del modal
+modalOpen: boolean = false;
+currentImageIndex: number = 0;
+
+constructor() { }
+
+
+
+// Abrir modal con una imagen específica
+openModal(index: number): void {
+  this.currentImageIndex = index;
+  this.modalOpen = true;
+  // Prevenir scroll del body mientras el modal está abierto
+  document.body.classList.add('overflow-hidden');
+}
+
+// Cerrar modal
+closeModal(): void {
+  this.modalOpen = false;
+  document.body.classList.remove('overflow-hidden');
+}
+
+// Navegar a la imagen anterior
+prevImage(event: Event): void {
+  event.stopPropagation(); // Evita que se cierre el modal
+  this.currentImageIndex = (this.currentImageIndex === 0) 
+    ? this.images.length - 1 
+    : this.currentImageIndex - 1;
+}
+
+// Navegar a la siguiente imagen
+nextImage(event: Event): void {
+  event.stopPropagation(); // Evita que se cierre el modal
+  this.currentImageIndex = (this.currentImageIndex === this.images.length - 1) 
+    ? 0 
+    : this.currentImageIndex + 1;
+}
+
+// Responder a las teclas del teclado
+@HostListener('document:keydown', ['$event'])
+handleKeyboardEvent(event: KeyboardEvent): void {
+  if (!this.modalOpen) return;
+  
+  switch(event.key) {
+    case 'Escape':
+      this.closeModal();
+      break;
+    case 'ArrowLeft':
+      this.prevImage(new Event('keydown'));
+      break;
+    case 'ArrowRight':
+      this.nextImage(new Event('keydown'));
+      break;
+  }
+}
+
+
+
+
+
+
+
 }

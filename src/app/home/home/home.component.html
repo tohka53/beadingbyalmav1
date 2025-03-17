@@ -113,50 +113,121 @@
         <h1 class="text-amber-50">.</h1>
         
         <div class="flex-grow">
-          <p class="leading-relaxed ">1. El cliente nos contacta a través de nuestras redes sociales.</p>
+          <p class="leading-relaxed ">1.Contacto Inicial: El cliente nos contacta a través de nuestras redes sociales.</p>
           
         </div>
       </div>
       <div class="flex flex-col mb-10 lg:items-start items-center">
         <div class="flex-grow">
-          <p class="leading-relaxed">2. Pregunta sobre Diseño</p>
+          <p class="leading-relaxed">2. Consulta de Diseño: El cliente realiza preguntas sobre el diseño de los productos.          </p>
         </div>
       </div>
       <div class="flex flex-col mb-10 lg:items-start items-center">
         <div class="flex-grow">
-          <p class="leading-relaxed">3. Pregunta sobre colores.</p>
+          <p class="leading-relaxed">3. Consulta de Colores: El cliente pregunta sobre la disponibilidad de colores.Si el color solicitado no está en inventario, se verifica con el proveedor y se responde al cliente en un plazo de 24 horas.          </p>
         </div>
       </div>
       <div class="flex flex-col mb-10 lg:items-start items-center">
         <div class="flex-grow">
-          <p class="leading-relaxed ">4. Si el color no se tiene en el invetario, se
-            corrobora con provedor y se responde en
-            un lapso de 24hrs.</p>
+          <p class="leading-relaxed ">4. ⁠Confirmación: Se confirma el color y el diseño con el cliente.
+          </p>
         </div>
       </div>
       <div class="flex flex-col mb-10 lg:items-start items-center">
         <div class="flex-grow">
-          <p class="leading-relaxed ">5. Se confirma color y diseño con el cliente.</p>
+          <p class="leading-relaxed ">5. Tiempo de Entrega: Se solicitan de 8-15 días hábiles para la entrega del producto.</p>
         </div>
       </div>
       <div class="flex flex-col mb-10 lg:items-start items-center">
         <div class="flex-grow">
-          <p class="leading-relaxed ">6. Se solicita 8 dias habiles para la entrega</p>
+          <p class="leading-relaxed ">6. Pago: Se requiere un adelanto del 50% o el pago total del producto.          </p>
         </div>
       </div>
       <div class="flex flex-col mb-10 lg:items-start items-center">
         <div class="flex-grow">
-          <p class="leading-relaxed ">7. Se trabaja con Adelanto del 50% o pago
-            total.</p>
+          <p class="leading-relaxed ">7. ⁠⁠Información de Envío: Se envía la información al cliente cuando el paquete está en manos del servicio de envío.</p>
         </div>
       </div>
-      <div class="flex flex-col mb-10 lg:items-start items-center">
-        <div class="flex-grow">
-          <p class="leading-relaxed ">8. Se envia la informacion cuando el paquete
-            esta con el servicio de envio.</p>
-        </div>
-      </div>
+     
 
     </div>
   </div>
+</section>
+
+
+
+<section>
+
+<!-- Componente de galería en el template -->
+<div class="container mx-auto px-5 py-2 lg:px-32 lg:pt-12">
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+    <!-- Imagen de la galería (repetir para cada imagen) -->
+    <div *ngFor="let image of images; let i = index" class="relative overflow-hidden rounded-lg shadow-md">
+      <img 
+        [src]="image.thumbnail" 
+        [alt]="image.alt" 
+        (click)="openModal(i)"
+        class="w-full h-64 object-cover transform transition-transform duration-300 hover:scale-105 cursor-pointer"
+      />
+    </div>
+  </div>
+</div>
+
+<!-- Modal para visualizar imagen grande -->
+<div *ngIf="modalOpen" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75 transition-opacity" (click)="closeModal()">
+  <div class="max-w-screen-xl max-h-screen-xl w-full h-full p-4 flex flex-col items-center justify-center">
+    <div class="relative w-full flex justify-between items-center mb-2">
+      <!-- Botón cerrar -->
+      <button (click)="closeModal()" class="bg-white/20 hover:bg-white/30 rounded-full p-2 text-white absolute top-0 right-0 z-10">
+        <span class="sr-only">Cerrar</span>
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+      
+      <!-- Título de la imagen -->
+      <h3 class="text-xl text-white">{{images[currentImageIndex]?.title || ''}}</h3>
+    </div>
+    
+    <!-- Imagen actual -->
+    <div class="relative max-w-full max-h-[80vh] overflow-hidden">
+      <img 
+        [src]="images[currentImageIndex]?.fullSize" 
+        [alt]="images[currentImageIndex]?.alt" 
+        class="max-h-[80vh] object-contain mx-auto"
+      />
+    </div>
+    
+    <!-- Controles de navegación -->
+    <div class="w-full flex justify-between items-center mt-4">
+      <button 
+        (click)="prevImage($event)" 
+        class="bg-white/20 hover:bg-white/30 rounded-full p-3 text-white"
+      >
+        <span class="sr-only">Anterior</span>
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+        </svg>
+      </button>
+      
+      <!-- Indicador de posición -->
+      <div class="text-white text-center">
+        {{ currentImageIndex + 1 }} / {{ images.length }}
+      </div>
+      
+      <button 
+        (click)="nextImage($event)" 
+        class="bg-white/20 hover:bg-white/30 rounded-full p-3 text-white"
+      >
+        <span class="sr-only">Siguiente</span>
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+
+
 </section>
