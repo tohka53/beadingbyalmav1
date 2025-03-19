@@ -10,7 +10,7 @@ interface ImageItem {
 @Component({
   selector: 'app-home',
   standalone: false,
-  templateUrl: './home.component.html',
+  templateUrl: '../home/home.component.html',
   styleUrl: './home.component.css'
 })
 export class HomeComponent implements OnInit, OnDestroy {
@@ -90,7 +90,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.startAutoPlay();
-    
+    this.currentImageIndex = 0;
     // Combinar las imágenes del carrusel con las de la galería para el modal
     this.allImages = [
       ...this.slides.map(slide => ({
@@ -170,6 +170,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   openModal(index: number): void {
     // Ajustar el índice considerando que ahora tenemos las imágenes del carrusel primero
     this.currentImageIndex = this.slides.length + index;
+    this.currentImageIndex = index; // Asegúrate de que este sea el índice correcto
+
     this.modalOpen = true;
     this.stopAutoPlay(); // Detener autoplay mientras el modal está abierto
     document.body.classList.add('overflow-hidden');
@@ -214,5 +216,10 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.nextImage(new Event('keydown'));
         break;
     }
+  }
+
+
+  isValidImageIndex(index: number): boolean {
+    return this.images && this.images.length > 0 && index >= 0 && index < this.images.length;
   }
 }
