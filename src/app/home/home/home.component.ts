@@ -16,29 +16,22 @@ interface ImageItem {
 export class HomeComponent implements OnInit, OnDestroy {
   slides = [
     {
-      image: 'assets/car1.jpeg',
+      image: 'assets/w1.jpeg',
       alt: 'Imagen 1'
     },
     {
-      image: 'assets/car2.jpeg',
+      image: 'assets/w2.jpeg',
       alt: 'Imagen 2'
     },
     {
-      image: 'assets/car3.jpeg',
+      image: 'assets/w3.jpeg',
       alt: 'Imagen 3'
     },
     {
-      image: 'assets/car4.jpeg',
+      image: 'assets/w4.jpeg',
       alt: 'Imagen 4'
     },
-    {
-      image: 'assets/car5.jpeg',
-      alt: 'Imagen 5'
-    },
-    {
-      image: 'assets/car6.jpeg',
-      alt: 'Imagen 6'
-    }
+   
   ];
 
   currentSlide = 0;
